@@ -18,10 +18,8 @@ pipeline {
           }
           }
         }
-      }
 
-    
-    stage('deploy job') //valiadte, compile, test & then package
+     stage('deploy job') //deploy
     {
       steps {
       sshagent(['DEV_CICD']) {
@@ -33,7 +31,11 @@ pipeline {
 
           }
         }
-      
+          
+      }
+
+    
+   
 
 
     }
