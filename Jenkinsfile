@@ -42,7 +42,7 @@ pipeline {
     {
       steps {
             withDockerRegistry(credentialsId: 'dockerHub') {
-              sh 'docker push snehademanna/ethans_947:latest .'
+              sh 'docker push snehademanna/ethans_947:latest'
             }
           }
       }
