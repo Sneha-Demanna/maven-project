@@ -7,8 +7,6 @@ pipeline {
         //git branch: 'master', url: 'https://github.com/kumargaurav039/maven-project.git'
       }
     }
-
-
     //   stage('package job') //valiadte, compile, test & then package
     // {
     //   steps {
