@@ -41,7 +41,7 @@ pipeline {
      stage('push docker image') //valiadte, compile, test & then package
     {
       steps {
-            withDockerRegistry(credentialsId: 'dockerHub') {
+            withDockerRegistry(credentialsId: 'dockerHub', url: 'https://index.docker.io/v1/') {
               sh 'docker push snehademanna/ethans_947:latest'
             }
           }
