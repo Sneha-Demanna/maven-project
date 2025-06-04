@@ -9,29 +9,46 @@ pipeline {
     }
 
 
-      stage('package job') //valiadte, compile, test & then package
-    {
-      steps {
-          withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-          
-          withSonarQubeEnv(credentialsId: 'sonarconnection', installationName: 'sonar' ) {
-             sh 'mvn package sonar:sonar'}
-                }
-          
-          }
-        }
-
-    // stage('package job') //valiadte, compile, test & then package
+    //   stage('package job') //valiadte, compile, test & then package
     // {
     //   steps {
-    //       // withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-    //       // sh 'mvn package'
-    //       withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
-    //       sh 'mvn package'      
-    //       }
+    //       withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+          
+    //       withSonarQubeEnv(credentialsId: 'sonarconnection', installationName: 'sonar' ) {
+    //          sh 'mvn package sonar:sonar'}
+    //             }
+          
     //       }
     //     }
 
+    stage('package job') //valiadte, compile, test & then package
+    {
+      steps {
+          // withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+          // sh 'mvn package'
+          withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) {
+          sh 'mvn clean package'      
+          }
+          }
+        }
+
+ stage('create docker image') //valiadte, compile, test & then package
+    {
+      steps {
+            sh 'docker build -t snehademanna/ethans_947:latest .'
+          }
+          }
+        
+
+     stage('push docker image') //valiadte, compile, test & then package
+    {
+      steps {
+            withDockerRegistry(credentialsId: 'dockerHub') {
+              sh 'docker push snehademanna/ethans_947:latest .'
+            }
+          }
+      }
+        
     //  stage('deploy job') //deploy
     // {
     //   steps {
